@@ -4,8 +4,10 @@ const app = express()  // 익스프레스 라이브러리 쓰겟다
 
 
 
+
 app.use(express.static(__dirname + '/public'))
 // 퍼블릭파일 등록방법
+app.set('view engine', 'ejs')  // ejs 사용하겟다
 
 
 const { MongoClient } = require('mongodb')
@@ -29,6 +31,20 @@ app.listen(8080, () => {
 app.get('/', (요청, 응답) => {
   응답.sendFile(__dirname + '/index.html')
 })    // 메인페이지 접속시 '반갑다' 실행
+
+app.get('/list', async (요청, 응답) => {
+  let result = await db.collection('post').find().toArray()
+  // 응답.send(result[0].title)
+  응답.render('list.ejs',{ 글목록 : result }) //뷰아래경로는 그냥 파일명만 입력, 오브젝트형으로 생성{}2222222222222222222222222222222222222222
+  응답.render('time.ejs',{ data : new Date()  }) 
+})// await 를 넣어야함 db post할떄 파인트 투어레이 이런건 문법
+
+app.get('/time',  (요청, 응답) => {
+  응답.render('time.ejs',{ data : new Date()  }) 
+})
+
+
+
 
 
 
