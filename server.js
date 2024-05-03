@@ -1,7 +1,9 @@
 
 const express = require('express') // 익스프레스 라이브러리 쓰겟다
 const app = express()  // 익스프레스 라이브러리 쓰겟다
-
+app.use(express.json())
+app.use(express.urlencoded({extended:true})) 
+  //  요청.body 쓰려면 필요.
 
 
 
@@ -34,22 +36,18 @@ app.get('/', (요청, 응답) => {
 
 app.get('/list', async (요청, 응답) => {
   let result = await db.collection('post').find().toArray()
-  // 응답.send(result[0].title)
-  응답.render('list.ejs',{ 글목록 : result }) //뷰아래경로는 그냥 파일명만 입력, 오브젝트형으로 생성{}2222222222222222222222222222222222222222
-  응답.render('time.ejs',{ data : new Date()  }) 
-})// await 를 넣어야함 db post할떄 파인트 투어레이 이런건 문법
+  응답.render('list.ejs',{ 글목록 : result }) //뷰아래경로는 그냥 파일명만 입력, 오브젝트형으로 생성{}2
+})//// 응답.send(result[0].title) ,  await 를 넣어야함 db post할떄 파인트 투어레이 이런건 문법
 
 app.get('/time',  (요청, 응답) => {
   응답.render('time.ejs',{ data : new Date()  }) 
 })
 
+app.get('/write',  (요청, 응답) => {
+  응답.render('write.ejs') 
+})  
 
-
-
-
-
-app.get('/news', ()=>{
-  // db.collection('post').insertOne({title : '어쩌구'}) // 테스트이여서 주석처리
+app.post('/add', async (요청, 응답) => {
+  await db.collection('post').insertOne({ title : 요청.body.title, content : 요청.body.content })
+  응답.redirect('/list')
 })
-  // 응답.send('오늘비움')
-   // /news 페이지로 라우트  ,펑션 or 애로우평션  , 콜백함수
