@@ -49,6 +49,19 @@ app.get('/write',  (요청, 응답) => {
   응답.render('write.ejs') 
 })  
 
+// app.get('/edit/:id', async (요청, 응답) => {
+//   db.collection('')
+//   응답.render('edit.ejs')
+// })  
+
+app.get('/edit/:id', async (요청, 응답) => {
+  let result = await db.collection('post').findOne({ _id : new ObjectId(요청.params.id) })
+  응답.render('edit.ejs', {result : result})
+  console.log
+})
+
+
+
 app.post('/add', async (요청, 응답) => {
   console.log(요청.body)
 
@@ -82,5 +95,5 @@ app.get('/detail/:id', async (요청,응답)=> {
   console.log(e)
   응답.status(404).send('잘못된 URL 입력함')
  }
-
 })
+
