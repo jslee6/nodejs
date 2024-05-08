@@ -48,6 +48,21 @@ app.get('/write',  (요청, 응답) => {
 })  
 
 app.post('/add', async (요청, 응답) => {
-  await db.collection('post').insertOne({ title : 요청.body.title, content : 요청.body.content })
-  응답.redirect('/list')
-})
+  console.log(요청.body)
+
+ 
+    try{ 
+      if (요청.body.title == '' || 요청.body.content == ''){ 
+        응답.send('제목입력 안함')    //예외처리 방법 제목이 '' 없으면  ~제목입력안함 
+    
+      } else { await db.collection('post').insertOne({ title : 요청.body.title, content : 요청.body.content }) 
+      응답.redirect('/list')
+      }
+
+    } catch(e){
+      console.log(e)
+      응답.status(500).send('서버 에러남')     /// 트라이캐치 + 콘솔 로그 추가하면 에러 확인가능
+    }
+
+ 
+}) // 인서트

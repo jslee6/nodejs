@@ -24,7 +24,7 @@ body {
   }
   .list-box {
     padding : 10px;
-    border-bottom: 1px solid#eee;
+    border-bottom: 10px solid#eee;
   }
   .list-box h4{
     font-size: 16px;
