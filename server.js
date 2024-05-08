@@ -1,6 +1,8 @@
 
 const express = require('express') // 익스프레스 라이브러리 쓰겟다
 const app = express()  // 익스프레스 라이브러리 쓰겟다
+const { MongoClient, ObjectId } = require('mongodb')
+
 app.use(express.json())
 app.use(express.urlencoded({extended:true})) 
   //  요청.body 쓰려면 필요.
@@ -12,7 +14,7 @@ app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs')  // ejs 사용하겟다
 
 
-const { MongoClient } = require('mongodb')
+
 
 let db
 const url = 'mongodb+srv://jslee:qlalf1@cluster0.wqytvou.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
@@ -66,3 +68,19 @@ app.post('/add', async (요청, 응답) => {
 
  
 }) // 인서트
+
+app.get('/detail/:id', async (요청,응답)=> {
+ try{ 
+  let result = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)}) 
+ console.log(요청.params)
+ 응답.render('detail.ejs', {result : result})
+ if (result == null){
+  응답.status(404).send('잘못된 URL 입력함') //이중예외
+ }
+
+ }  catch(e){
+  console.log(e)
+  응답.status(404).send('잘못된 URL 입력함')
+ }
+
+})

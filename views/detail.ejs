@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="main.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
 </head>
 <body class="grey-bg">
    
     <%- include('nav.ejs') %>  
+    <!-- <%= JSON.stringify(result) %>  제이슨 파일로 출력 확인 -->
     <!-- html 처럼 나오려면 - 로표기 = 는 문자나 숫자처럼 나옴 -->
+    <div class="detail-bg">
+        <h4><%= result.title %></h4> 
+        <h4><%= result.content %></h4> 
+    </div> 
     
-    <form class="form-box" action="/add" method="POST">
-        <h4>글쓰기</h4>
-         <input name="title">
-         <input name="content">
-         <button type="submit">전송</button>
-     </form> 
-  
   </body>
 </html>

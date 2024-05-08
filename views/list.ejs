@@ -16,7 +16,8 @@
     <% for (let i=0; i <글목록.length; i++){%>
     <div class="white-bg">
       <div class="list-box">
-        <h4><%= 글목록[i].title %></h4>
+        <a href="/detail/<%= 글목록[i]._id %>">
+          <%= 글목록[i].title %>
         <h4><%= 글목록[i].content %></h4> 
         <!-- <p>글내용임</p> -->
       </div>
