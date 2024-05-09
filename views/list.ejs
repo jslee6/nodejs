@@ -28,7 +28,7 @@
       <% } %>
     </div>
 
-    <script>
+    <!-- <script>
       document.querySelectorAll('.delete')[0].addEventListener('click', function(){
         fetch('/abc', {
           method : 'POST',
@@ -38,9 +38,21 @@
           body : JSON.stringify({a : 1})
         })
       })
-    </script> 
+    </script> AJAX 1 내역  -->
 
-    // / <!-- 폼태그 말고 ajax 를 사용할수잇음. 이게 ajax. get , post ,delete ,put 등 중요!!! /abc 하여서 server.js 에서-->
+<script>
+
+  document.querySelectorAll('.delete')[0].addEventListener('click', function(){
+  fetch('/delete?docid=' + '<%= 글목록[0]._id %>', {
+    method : 'DELETE',
+  })
+})     //  쿼리스트링 ?  ajx ?
+
+</script> 
+
+
+
+   <!-- 폼태그 말고 ajax 를 사용할수잇음. 이게 ajax. get , post ,delete ,put 등 중요!!! /abc 하여서 server.js 에서-->
   
 
   </body>

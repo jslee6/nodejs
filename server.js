@@ -117,3 +117,9 @@ app.post('/abc', async (요청, 응답) =>{
 })
 
 
+
+app.delete('/delete', async (요청, 응답) => {
+  // console.log(요청.query)
+  let result = await db.collection('post').deleteOne( { _id : new ObjectId(요청.query.docid) } )
+  응답.send('삭제완료')
+})  // 요청들어오면 서버는 삭제 , ajax 쓸뗴는 리다이렉트 안씀 , 새로고침 안되는게 장점
