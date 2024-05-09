@@ -49,25 +49,33 @@ app.get('/write',  (요청, 응답) => {
   응답.render('write.ejs') 
 })  
 
-// app.post('/edit', async (요청, 응답)=>{
-//   await db.collection('post').updateOne({ _id : new ObjectId(요청.body.id) },
-//     {$set : { title : 요청.body.title, content : 요청.body.content }
-//   })
-//   응답.redirect('/list')
-// }) 
-
 app.get('/edit/:id', async (요청, 응답) => {
   let result = await db.collection('post').findOne({ _id : new ObjectId(요청.params.id) })
   응답.render('edit.ejs', {result : result})
   console.log
-})
+})  //수정전 가져오기 기능
+
+app.post('/edit', async (요청, 응답)=>{
+  await db.collection('post').updateOne({ _id : new ObjectId(요청.body.id) },
+    {$set : { title : 요청.body.title, content : 요청.body.content }
+  })
+  응답.redirect('/list')
+})  // 수정기능  업데이트
+
+
+app.post('/edit', async (요청, 응답)=>{
+  await db.collection('post').updateOne({ _id : new ObjectId(요청.body.id) },
+    {$set : { title : 요청.body.title, content : 요청.body.content }
+  })
+  응답.redirect('/list')
+})  // 수정기능  업데이트
+
 
 
 
 app.post('/add', async (요청, 응답) => {
   console.log(요청.body)
 
- 
     try{ 
       if (요청.body.title == '' || 요청.body.content == ''){ 
         응답.send('제목입력 안함')    //예외처리 방법 제목이 '' 없으면  ~제목입력안함 
