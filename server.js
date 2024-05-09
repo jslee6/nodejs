@@ -2,6 +2,7 @@
 const express = require('express') // 익스프레스 라이브러리 쓰겟다
 const app = express()  // 익스프레스 라이브러리 쓰겟다
 const { MongoClient, ObjectId } = require('mongodb')
+const methodOverride = require('method-override')  // 메소드 오버라이드 . 풋 , 딜리트등
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true})) 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static(__dirname + '/public'))
 // 퍼블릭파일 등록방법
 app.set('view engine', 'ejs')  // ejs 사용하겟다
+app.use(methodOverride('_method'))   // 메소드 오버라이드
 
 
 
@@ -55,12 +57,12 @@ app.get('/edit/:id', async (요청, 응답) => {
   console.log
 })  //수정전 가져오기 기능
 
-app.post('/edit', async (요청, 응답)=>{
+app.put('/edit', async (요청, 응답)=>{
   await db.collection('post').updateOne({ _id : new ObjectId(요청.body.id) },
     {$set : { title : 요청.body.title, content : 요청.body.content }
   })
   응답.redirect('/list')
-})  // 수정기능  업데이트
+})  // 수정기능  업데이트 // 메소드 오버라이드 설치후에 사용가능
 
 
 app.post('/edit', async (요청, 응답)=>{
@@ -106,4 +108,12 @@ app.get('/detail/:id', async (요청,응답)=> {
   응답.status(404).send('잘못된 URL 입력함')
  }
 })
+
+
+
+app.post('/abc', async (요청, 응답) =>{
+  console.log('안녕')
+  console.log(요청.body)
+})
+
 

@@ -12,27 +12,36 @@
     
     <!-- html 처럼 나오려면 - 로표기 = 는 문자나 숫자처럼 나옴 -->
     
-    
-    <% for (let i=0; i <글목록.length; i++){%>
+
     <div class="white-bg">
-      <div class="list-box">
-        <a href="/detail/<%= 글목록[i]._id %>">
-          <%= 글목록[i].title %>
-        </a>
+      <% for (let i = 0; i < 글목록.length; i++){ %>
+        <div class="list-box">
+          <h4>
+            <a href="/detail/<%= 글목록[i]._id %>">
+              <%= 글목록[i].title %>
+            </a>
+            <a href="/edit/<%= 글목록[i]._id %>">✏️</a>
+            <span class="delete">🗑️</span>
+          </h4>
+          <p><%= 글목록[i].content %></p>
+        </div>
+      <% } %>
+    </div>
 
-        <a href="/edit/<%= 글목록[i]._id %>">✏️</a>
-        <h4><%= 글목록[i].content %></h4> 
-        <!-- <p>글내용임</p> -->
-      </div>
-      <!-- <div class="list-box">
-        <h4>글제목임</h4> 하드코딩
-        <p>글내용임</p>
-      </div> -->
-    </div> 
-    <%} %>
+    <script>
+      document.querySelectorAll('.delete')[0].addEventListener('click', function(){
+        fetch('/abc', {
+          method : 'POST',
+          headers : { 
+            'Content-Type' : 'application/json' 
+          },
+          body : JSON.stringify({a : 1})
+        })
+      })
+    </script> 
 
-    
-    
+    // / <!-- 폼태그 말고 ajax 를 사용할수잇음. 이게 ajax. get , post ,delete ,put 등 중요!!! /abc 하여서 server.js 에서-->
   
+
   </body>
 </html>
