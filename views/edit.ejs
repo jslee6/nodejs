@@ -11,12 +11,13 @@
     <%- include('nav.ejs') %>  
     <!-- html 처럼 나오려면 - 로표기 = 는 문자나 숫자처럼 나옴 -->
     
-    <form class="form-box" action="/add" method="POST">
-        <h4>글쓰기</h4>
-         <input name="title" value="<%= result.title %>">
-         <input name="content" value="<%= result.content %>">
-         <button type="submit">전송</button>
-     </form> 
+<form class="form-box" action="/edit" method="POST">
+  <h4>수정하기</h4>
+  <input name="id" value="<%= result._id %>">
+  <input name="title" value="<%= result.title %>">
+  <input name="content" value="<%= result.content %>">
+</form>
+
   
   </body>
 </html>
