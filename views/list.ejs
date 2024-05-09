@@ -21,7 +21,8 @@
               <%= 글목록[i].title %>
             </a>
             <a href="/edit/<%= 글목록[i]._id %>">✏️</a>
-            <span class="delete">🗑️</span>
+            <span class="delete" data-id="<%= 글목록[i]._id %>">🗑️</span>  
+            <!-- data-id="<%= 글목록[i]._id %> 는 삭제 버튼을 데이타 id에 넣음 47번째로 연결-->
           </h4>
           <p><%= 글목록[i].content %></p>
         </div>
@@ -42,11 +43,24 @@
 
 <script>
 
-  document.querySelectorAll('.delete')[0].addEventListener('click', function(){
-  fetch('/delete?docid=' + '<%= 글목록[0]._id %>', {
+  document.querySelectorAll('.delete')[0].addEventListener('click', function(e){
+    fetch('/delete?docid=' + e.target.dataset.id, {
     method : 'DELETE',
   })
-})     //  쿼리스트링 ?  ajx ?
+})     //  쿼리스트링 ?  ajx ? 위에 +기호는 문자 두개 합쳐주세요 ,  e.target.dataset.id== 문자라서 +로 합치고 위에 data-id 에서 받은 데이타셋에 id를 넣음
+
+
+document.querySelectorAll('.delete')[1].addEventListener('click', function(e){
+    fetch('/delete?docid=' + e.target.dataset.id, {
+    method : 'DELETE',
+  })
+})  
+
+document.querySelectorAll('.delete')[2].addEventListener('click', function(e){
+    fetch('/delete?docid=' + e.target.dataset.id, {
+    method : 'DELETE',
+  })
+})  
 
 </script> 
 
