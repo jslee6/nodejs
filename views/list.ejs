@@ -45,22 +45,25 @@
 
   document.querySelectorAll('.delete')[0].addEventListener('click', function(e){
     fetch('/delete?docid=' + e.target.dataset.id, {
-    method : 'DELETE',
+    method : 'DELETE'
   })
+  
+  .then((r)=>r.text())
+    .then((r)=>console.log(r))
 })     //  쿼리스트링 ?  ajx ? 위에 +기호는 문자 두개 합쳐주세요 ,  e.target.dataset.id== 문자라서 +로 합치고 위에 data-id 에서 받은 데이타셋에 id를 넣음
 
 
-document.querySelectorAll('.delete')[1].addEventListener('click', function(e){
-    fetch('/delete?docid=' + e.target.dataset.id, {
-    method : 'DELETE',
-  })
-})  
+// document.querySelectorAll('.delete')[1].addEventListener('click', function(e){
+//     fetch('/delete?docid=' + e.target.dataset.id, {
+//     method : 'DELETE'
+//   })
+// })  
 
-document.querySelectorAll('.delete')[2].addEventListener('click', function(e){
-    fetch('/delete?docid=' + e.target.dataset.id, {
-    method : 'DELETE',
-  })
-})  
+// document.querySelectorAll('.delete')[2].addEventListener('click', function(e){
+//     fetch('/delete?docid=' + e.target.dataset.id, {
+//     method : 'DELETE'
+//   })
+// })  
 
 </script> 
 
